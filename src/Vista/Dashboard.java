@@ -12,7 +12,7 @@ public class Dashboard extends JFrame implements ActionListener {
     private JButton logout;
     private JLabel headerLabel;
     private UserPanel userPanel;
-    private Reserva reservaPanel;
+    private Registro reservaPanel;
 
     // Constructor para inicializar el Dashboard
     public Dashboard() {
@@ -37,15 +37,15 @@ public class Dashboard extends JFrame implements ActionListener {
         sidePanel.add(headerLabel);
 
         // Botones de Navegación
-        JButton btnReserva = new JButton("Reserva");
+        JButton btnRegistro = new JButton("Registro");
         JButton btnUsuarios = new JButton("Usuarios");
 
 
-        styleButton(btnReserva);
+        styleButton(btnRegistro);
         styleButton(btnUsuarios);
 
 
-        btnReserva.addActionListener(this);
+        btnRegistro.addActionListener(this);
         btnUsuarios.addActionListener(this);
 
 
@@ -55,7 +55,7 @@ public class Dashboard extends JFrame implements ActionListener {
         logout.addActionListener(this);
 
         // Agregar botones al panel lateral
-        sidePanel.add(btnReserva);
+        sidePanel.add(btnRegistro);
         sidePanel.add(btnUsuarios);
         sidePanel.add(logout);
 
@@ -67,9 +67,9 @@ public class Dashboard extends JFrame implements ActionListener {
         cardPanel.setLayout(cardLayout);
 
         // Panel de Recepción
-        JPanel reservaPanel = new JPanel();
-        reservaPanel.add(new Reserva());
-        cardPanel.add(reservaPanel, "Reserva");
+        JPanel registroPanel = new JPanel();
+        registroPanel.add(new Registro());
+        cardPanel.add(registroPanel, "Registro");
 
         // Panel de Configuraciones
         JPanel usuariosPanel = new JPanel();
@@ -96,8 +96,8 @@ public class Dashboard extends JFrame implements ActionListener {
         String command = ae.getActionCommand();
 
         switch (command) {
-            case "Reserva":
-                cardLayout.show(cardPanel, "Reserva");
+            case "Registro":
+                cardLayout.show(cardPanel, "Registro");
                 break;
             case "Usuarios":
                 cardLayout.show(cardPanel, "Usuarios");

@@ -5,7 +5,7 @@ import java.sql.*;
 public class Conexion implements AutoCloseable {
 
     private Connection c;
-    private Statement s;
+    public Statement s;
 
     // Parámetros de conexión a la base de datos
     private static final String URL = "jdbc:mysql://localhost:3306/hotel";
