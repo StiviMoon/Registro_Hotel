@@ -1,6 +1,8 @@
 
 package Vista; // Cambia a un paquete adecuado
 
+import Controler.User_Panel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,8 +13,8 @@ public class Dashboard extends JFrame implements ActionListener {
     private JPanel cardPanel;
     private JButton logout;
     private JLabel headerLabel;
-    private UserPanel userPanel;
     private Registro reservaPanel;
+    private User_Panel userPanel;
 
     // Constructor para inicializar el Dashboard
     public Dashboard() {
@@ -73,7 +75,7 @@ public class Dashboard extends JFrame implements ActionListener {
 
         // Panel de Configuraciones
         JPanel usuariosPanel = new JPanel();
-        usuariosPanel.add(new UserPanel());
+        usuariosPanel.add(new User_Panel());
         cardPanel.add(usuariosPanel, "Usuarios");
 
 
