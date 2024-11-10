@@ -144,7 +144,7 @@ public class Registro extends JPanel {
         submitButton2.addActionListener(e -> {
             String tipoDocSeleccionado = (String) tipoDocComboBox.getSelectedItem();
             String numeroDocumento = textFieldsMap.get("Número de documento R:").getText(); // Obtener el texto del campo
-            System.out.println(tipoDocSeleccionado);
+
 
             if (numeroDocumento.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese el número de documento.");

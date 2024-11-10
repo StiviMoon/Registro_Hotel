@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Actualizacion-Tabla-Usuarios">
+    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Registro_CRUD_COMPLETO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proyecto_Eventos_Hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Eventos_Hotel.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BD/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BD/Conexion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BD/bd.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/BD/bd.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controler/Controlador_Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controler/Controlador_Registro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controler/User_Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controler/User_Panel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vista/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vista/Dashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Vista/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vista/Registro.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,6 +21,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -66,7 +73,6 @@
     "Application.Reserva.executor": "Run",
     "Application.UserPanel.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/steve/OneDrive/Documents/Carrera/Programacion/Java-intelliJ/Proyecto_Eventos_Hotel/Dependencias/jcalendar-1.4/lib/junit-4.6.jar",
@@ -105,12 +111,21 @@
       <option name="project" value="LOCAL" />
       <updated>1731019277040</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Registro_CRUD_COMPLETO">
+      <option name="closed" value="true" />
+      <created>1731217842505</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731217842505</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Conexion-RegistroUsuarios" />
     <MESSAGE value="Actualizacion-Tabla-Usuarios" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualizacion-Tabla-Usuarios" />
+    <MESSAGE value="Registro_CRUD_COMPLETO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Registro_CRUD_COMPLETO" />
   </component>
 </project>
