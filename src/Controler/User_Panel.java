@@ -30,7 +30,7 @@ public class User_Panel extends JPanel {
         JPanel tablePanel = new JPanel(new BorderLayout());
         tablePanel.setBorder(BorderFactory.createTitledBorder("Usuarios"));
 
-        String[] columnNames = {"ID", "Nombre", "Apellido", "Celular"};
+        String[] columnNames = {"ID", "Nombre", "Apellido", "Celular","Numero_Doc"};
         tableModel = new DefaultTableModel(columnNames, 0);
         userTable = new JTable(tableModel);
         JScrollPane tableScrollPane = new JScrollPane(userTable);
@@ -99,7 +99,8 @@ public class User_Panel extends JPanel {
                         usuario.get("ID"),
                         usuario.get("Nombre"),
                         usuario.get("Apellido"),
-                        usuario.get("Celular")
+                        usuario.get("Celular"),
+                        usuario.get("Numero_Doc")
                 };
                 tableModel.addRow(fila);
             }
@@ -114,21 +115,24 @@ public class User_Panel extends JPanel {
         String nombre = (String) tableModel.getValueAt(rowIndex, 1);
         String apellido = (String) tableModel.getValueAt(rowIndex, 2);
         String celular = (String) tableModel.getValueAt(rowIndex, 3);
+        String numero_doc = (String) tableModel.getValueAt(rowIndex, 4);
 
         JTextField nombreField = new JTextField(nombre);
         JTextField apellidoField = new JTextField(apellido);
         JTextField celularField = new JTextField(celular);
+        JTextField numero_docField = new JTextField(numero_doc);
 
         Object[] message = {
                 "Nombre:", nombreField,
                 "Apellido:", apellidoField,
-                "Celular:", celularField
+                "Celular:", celularField,
+                "Numero_Doc:",numero_docField
         };
 
         int option = JOptionPane.showConfirmDialog(null, message, "Editar Usuario", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
             try (Conexion conexion = new Conexion()) {
-                boolean success = conexion.updateUsuario(id, nombreField.getText(), apellidoField.getText(), celularField.getText());
+                boolean success = conexion.updateUsuario(id, nombreField.getText(), apellidoField.getText(), celularField.getText(), numero_docField.getText());
                 if (success) {
                     JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente.");
                     cargarUsuarios(); // Refresca la tabla

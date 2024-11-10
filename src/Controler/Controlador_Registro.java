@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class Controlador_Registro {
         String numeroDocumento = (String) datosUsuario.get("Número de documento:");
         String nombre = (String) datosUsuario.get("Nombre:");
         String apellido = (String) datosUsuario.get("Apellido:");
-        String fechaNacimiento = (String) datosUsuario.get("Fecha de nacimiento:");
+        String fechaNacimiento = (String) datosUsuario.get("Fecha de nacimiento");
         String direccion = (String) datosUsuario.get("Dirección:");
         String telefonoFijo = (String) datosUsuario.get("Teléfono fijo:");
         String celularPrincipal = (String) datosUsuario.get("Celular principal:");
@@ -52,13 +53,11 @@ public class Controlador_Registro {
         System.out.println("Ocupación: " + ocupacion);
         System.out.println("Teléfono empresa: " + telefonoEmpresa);
     }
-
     public void enviarRegistroABaseDeDatos(Map<String, Object> datosUsuario) {
         String tipoDocumento = (String) datosUsuario.get("Tipo de documento");
         String numeroDocumento = (String) datosUsuario.get("Número de documento:");
         String nombre = (String) datosUsuario.get("Nombre:");
         String apellido = (String) datosUsuario.get("Apellido:");
-        String fechaNacimiento = (String) datosUsuario.get("Fecha de nacimiento:");
         String direccion = (String) datosUsuario.get("Dirección:");
         String telefonoFijo = (String) datosUsuario.get("Teléfono fijo:");
         String celularPrincipal = (String) datosUsuario.get("Celular principal:");
@@ -68,6 +67,7 @@ public class Controlador_Registro {
         String ciudadResidencia = (String) datosUsuario.get("Ciudad");
         String ocupacion = (String) datosUsuario.get("Ocupación:");
         String telefonoEmpresa = (String) datosUsuario.get("Teléfono empresa:");
+        String fechaNacimiento = (String) datosUsuario.get("Fecha de nacimiento");
 
         String sql = "INSERT INTO Persona (tipo_documento, numero_documento, nombre, apellido, direccion, " +
                 "telefono_fijo, celular_principal, celular_secundario, ciudad_residencia, " +
@@ -78,33 +78,28 @@ public class Controlador_Registro {
              Connection conn = conexion.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Asignación de valores usando el mapa de datos
-            pstmt.setString(1, (String) tipoDocumento);
-            pstmt.setString(2, (String) numeroDocumento);
-            pstmt.setString(3, (String) nombre);
-            pstmt.setString(4, (String) apellido);
-            pstmt.setString(5, (String) direccion);
-            pstmt.setString(6, (String) telefonoFijo);
-            pstmt.setString(7, (String) celularPrincipal);
-            pstmt.setString(8, (String) celularSecundario);
-            pstmt.setString(9, (String) ciudadResidencia);
-            pstmt.setString(10, (String) paisResidencia);
-            pstmt.setString(11, (String) ocupacion);
-            pstmt.setString(12, (String) telefonoEmpresa);
+            // Asignación de valores
+            pstmt.setString(1, tipoDocumento);
+            pstmt.setString(2, numeroDocumento);
+            pstmt.setString(3, nombre);
+            pstmt.setString(4, apellido);
+            pstmt.setString(5, direccion);
+            pstmt.setString(6, telefonoFijo);
+            pstmt.setString(7, celularPrincipal);
+            pstmt.setString(8, celularSecundario);
+            pstmt.setString(9, ciudadResidencia);
+            pstmt.setString(10, paisResidencia);
+            pstmt.setString(11, ocupacion);
+            pstmt.setString(12, telefonoEmpresa);
 
-            // Convierte el valor de la fecha de nacimiento usando SimpleDateFormat
-            String fechaNacimientoStr = fechaNacimiento;
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date fechaUtil;
-
-            try {
-                fechaUtil = formatoFecha.parse(fechaNacimientoStr);
-                java.sql.Date fechaSql = new java.sql.Date(fechaUtil.getTime());
+            // Convertir fecha a java.sql.Date y asignarla al PreparedStatement
+            if (fechaNacimiento != null) {
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date fechaNacimiento_sql = formato.parse(fechaNacimiento);
+                java.sql.Date fechaSql = new java.sql.Date(fechaNacimiento_sql.getTime());
                 pstmt.setDate(13, fechaSql);
-            } catch (ParseException e) {
-                System.err.println("Error al parsear la fecha de nacimiento: " + e.getMessage());
-                e.printStackTrace();
-                return;
+            } else {
+                pstmt.setNull(13, java.sql.Types.DATE); // Asigna null si no hay fecha seleccionada
             }
 
             // Ejecuta la inserción
@@ -116,6 +111,8 @@ public class Controlador_Registro {
         } catch (SQLException e) {
             System.err.println("Error al insertar el registro en la base de datos: " + e.getMessage());
             e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -170,4 +167,6 @@ public class Controlador_Registro {
         panel.add(label);
         panel.add(textField);
     }
+
+
 }

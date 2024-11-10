@@ -1,8 +1,6 @@
-
 package Vista; // Cambia a un paquete adecuado
 
 import Controler.User_Panel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

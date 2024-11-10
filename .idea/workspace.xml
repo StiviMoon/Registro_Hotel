@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Conexion-RegistroUsuarios">
+    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Actualizacion-Tabla-Usuarios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proyecto_Eventos_Hotel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Proyecto_Eventos_Hotel.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BD/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BD/Conexion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BD/bd.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/BD/bd.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controler/Controlador_Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controler/Controlador_Registro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controler/User_Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controler/User_Panel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Vista/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vista/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vista/UserPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controler/User_Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Vista/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vista/Registro.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,11 +45,8 @@
     <setting file="file://$PROJECT_DIR$/src/BD/Conexion.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/BD/bd.sql" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/Controler/Controlador_Registro.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/Controler/Persona.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/Controler/PersonaDAO.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/Vista/Dashboard.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/Vista/Reserva.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/Vista/UserPanel.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/Vista/Registro.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -58,22 +59,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Dashboard.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Reserva.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserPanel.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/steve/OneDrive/Documents/Carrera/Programacion/Java-intelliJ/Proyecto_Eventos_Hotel/Dependencia_BD/rs2xml.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Dashboard.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.Reserva.executor": "Run",
+    "Application.UserPanel.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/steve/OneDrive/Documents/Carrera/Programacion/Java-intelliJ/Proyecto_Eventos_Hotel/Dependencias/jcalendar-1.4/lib/junit-4.6.jar",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Vista" />
@@ -96,11 +97,20 @@
       <option name="project" value="LOCAL" />
       <updated>1731016628128</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Actualizacion-Tabla-Usuarios">
+      <option name="closed" value="true" />
+      <created>1731019277040</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731019277040</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Conexion-RegistroUsuarios" />
-    <option name="LAST_COMMIT_MESSAGE" value="Conexion-RegistroUsuarios" />
+    <MESSAGE value="Actualizacion-Tabla-Usuarios" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualizacion-Tabla-Usuarios" />
   </component>
 </project>

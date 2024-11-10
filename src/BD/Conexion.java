@@ -38,7 +38,7 @@ public class Conexion implements AutoCloseable {
 
     public List<Map<String, Object>> obtenerUsuarios() {
         List<Map<String, Object>> usuarios = new ArrayList<>();
-        String sql = "SELECT id, nombre, apellido, celular_principal FROM Persona";
+        String sql = "SELECT id,   nombre, apellido, celular_principal, numero_documento FROM Persona";
 
         try (Connection conn = this.getConnection();
              Statement stmt = conn.createStatement();
@@ -47,6 +47,7 @@ public class Conexion implements AutoCloseable {
             while (rs.next()) {
                 Map<String, Object> usuario = new HashMap<>();
                 usuario.put("ID", rs.getInt("id"));
+                usuario.put("Numero_Doc", rs.getInt("numero_documento"));
                 usuario.put("Nombre", rs.getString("nombre"));
                 usuario.put("Apellido", rs.getString("apellido"));
                 usuario.put("Celular", rs.getString("celular_principal"));
@@ -61,14 +62,34 @@ public class Conexion implements AutoCloseable {
         return usuarios;
     }
 
+    public boolean usuarioExiste(String numeroDocumento, String tipoDocumento) {
+        String sql = "SELECT COUNT(*) AS total FROM Persona WHERE numero_documento = ? AND tipo_documento = ?";
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setString(1, numeroDocumento);
+            pstmt.setString(2, tipoDocumento);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt("total");
+                    return count > 0;  // Retorna true si existe al menos una coincidencia
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar si el usuario existe: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;  // Si no se encontró el usuario o hubo un error, retorna false
+    }
+
     // En la clase Conexion
-    public boolean updateUsuario(int id, String nombre, String apellido, String celular) {
-        String sql = "UPDATE Persona SET nombre = ?, apellido = ?, celular_principal = ? WHERE id = ?";
+    public boolean updateUsuario(int id, String nombre, String apellido, String celular, String numero_doc) {
+        String sql = "UPDATE Persona SET nombre = ?, apellido = ?, celular_principal = ?, numero_documento = ? WHERE id = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
             pstmt.setString(1, nombre);
             pstmt.setString(2, apellido);
             pstmt.setString(3, celular);
-            pstmt.setInt(4, id);
+            pstmt.setString(4, numero_doc);
+            pstmt.setInt(5, id);
 
             int rowsUpdated = pstmt.executeUpdate();
             return rowsUpdated > 0; // Retorna true si se actualizó al menos una fila

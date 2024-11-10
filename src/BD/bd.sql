@@ -14,3 +14,6 @@ CREATE TABLE Persona (
     telefono_empresa VARCHAR(15),
     fecha_nacimiento DATE
 );
+
+SELECT * FROM Persona
+
