@@ -42,10 +42,12 @@ public class User_Panel extends JPanel {
         JButton addButton = new JButton("Editar");
         JButton editButton = new JButton("Actualizar");
         JButton deleteButton = new JButton("Eliminar");
+        JButton deleteButton2 = new JButton("Eliminar determinado");
 
         crudPanel.add(addButton);
         crudPanel.add(editButton);
         crudPanel.add(deleteButton);
+        crudPanel.add(deleteButton2);
 
         add(searchPanel, BorderLayout.NORTH);
         add(tablePanel, BorderLayout.CENTER);
@@ -64,6 +66,15 @@ public class User_Panel extends JPanel {
             }
         });
 
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchText = searchField.getText();
+                filtrarUsuarios(searchText); // Llama al método de filtrado
+            }
+        });
+
+
         // Acción del botón de Actualizar
         editButton.addActionListener(new ActionListener() {
             @Override
@@ -71,11 +82,18 @@ public class User_Panel extends JPanel {
                 cargarUsuarios(); // Refresca la tabla
             }
         });
+        deleteButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarPorCC();
+            }
+        });
 
         // Acción del botón de Eliminar
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 int selectedRow = userTable.getSelectedRow();
                 if (selectedRow != -1) {
                     eliminarUsuario(selectedRow);
@@ -110,12 +128,35 @@ public class User_Panel extends JPanel {
         }
     }
 
+    private void filtrarUsuarios(String filtro) {
+        tableModel.setRowCount(0); // Limpiar los datos actuales de la tabla
+
+        try (Conexion conexion = new Conexion()) {
+            List<Map<String, Object>> usuarios = conexion.obtenerUsuariosConFiltro(filtro);
+            for (Map<String, Object> usuario : usuarios) {
+                Object[] fila = {
+                        usuario.get("ID"),
+                        usuario.get("Nombre"),
+                        usuario.get("Apellido"),
+                        usuario.get("Celular"),
+                        usuario.get("Numero_Doc")
+                };
+                tableModel.addRow(fila);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al filtrar usuarios en la tabla: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
     private void editarUsuario(int rowIndex) {
-        int id = (int) tableModel.getValueAt(rowIndex, 0);
-        String nombre = (String) tableModel.getValueAt(rowIndex, 1);
-        String apellido = (String) tableModel.getValueAt(rowIndex, 2);
-        String celular = (String) tableModel.getValueAt(rowIndex, 3);
-        String numero_doc = (String) tableModel.getValueAt(rowIndex, 4);
+        int id = (int) tableModel.getValueAt(rowIndex, 0); // Asegura que ID es int
+        String nombre = (String) tableModel.getValueAt(rowIndex, 1); // Asume que es String
+        String apellido = (String) tableModel.getValueAt(rowIndex, 2); // Asume que es String
+        String celular = tableModel.getValueAt(rowIndex, 3).toString(); // Convierte cualquier tipo a String
+        String numero_doc = tableModel.getValueAt(rowIndex, 4).toString(); // Convierte cualquier tipo a String
+
 
         JTextField nombreField = new JTextField(nombre);
         JTextField apellidoField = new JTextField(apellido);
@@ -126,7 +167,7 @@ public class User_Panel extends JPanel {
                 "Nombre:", nombreField,
                 "Apellido:", apellidoField,
                 "Celular:", celularField,
-                "Numero_Doc:",numero_docField
+                "Numero_Doc:", numero_docField
         };
 
         int option = JOptionPane.showConfirmDialog(null, message, "Editar Usuario", JOptionPane.OK_CANCEL_OPTION);
@@ -144,6 +185,7 @@ public class User_Panel extends JPanel {
             }
         }
     }
+
 
     private void eliminarUsuario(int rowIndex) {
         int id = (int) tableModel.getValueAt(rowIndex, 0);
@@ -163,4 +205,28 @@ public class User_Panel extends JPanel {
             }
         }
     }
+
+
+
+    private void eliminarPorCC(){
+        int numeroC = Integer.parseInt(JOptionPane.showInputDialog("Introduce el numero de documento a eliminar: "));
+        eliminarUsuarioDeterminado(numeroC);
+
+
+    }
+
+private void eliminarUsuarioDeterminado(int numeroC) {
+    try (Conexion conexion = new Conexion()) {
+        boolean success = conexion.deleteUsuarioCC(numeroC);
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente.");
+            cargarUsuarios(); // Refresca la tabla
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el usuario.");
+        }
+    } catch (Exception ex) {
+        System.err.println("Error al eliminar el usuario: " + ex.getMessage());
+    }
 }
+}
+

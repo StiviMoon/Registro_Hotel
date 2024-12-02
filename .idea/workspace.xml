@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Registro_CRUD_COMPLETO">
+    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Validacion_Registro">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vista/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vista/Registro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BD/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BD/Conexion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controler/User_Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controler/User_Panel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +56,9 @@
     <setting file="file://$PROJECT_DIR$/src/Vista/Dashboard.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/Vista/Registro.java" root0="SKIP_INSPECTION" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -66,21 +70,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Dashboard.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.Reserva.executor": "Run",
-    "Application.UserPanel.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/steve/OneDrive/Documents/Carrera/Programacion/Java-intelliJ/Proyecto_Eventos_Hotel/Dependencias/jcalendar-1.4/lib/junit-4.6.jar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Dashboard.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Reserva.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserPanel.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/steve/OneDrive/Documents/Carrera/Programacion/Java-intelliJ/Proyecto_Eventos_Hotel/Dependencias/jcalendar-1.4/lib/junit-4.6.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Vista" />
@@ -119,13 +123,22 @@
       <option name="project" value="LOCAL" />
       <updated>1731217842505</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Validacion_Registro">
+      <option name="closed" value="true" />
+      <created>1731219539536</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731219539536</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Conexion-RegistroUsuarios" />
     <MESSAGE value="Actualizacion-Tabla-Usuarios" />
     <MESSAGE value="Registro_CRUD_COMPLETO" />
-    <option name="LAST_COMMIT_MESSAGE" value="Registro_CRUD_COMPLETO" />
+    <MESSAGE value="Validacion_Registro" />
+    <option name="LAST_COMMIT_MESSAGE" value="Validacion_Registro" />
   </component>
 </project>

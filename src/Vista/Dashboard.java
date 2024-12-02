@@ -16,7 +16,7 @@ public class Dashboard extends JFrame implements ActionListener {
 
     // Constructor para inicializar el Dashboard
     public Dashboard() {
-        setTitle("Dashboard - Sistema de Gestión");
+        setTitle("Dashboard - Sistema de Gestión Hotelera");
         setSize(1550, 750);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

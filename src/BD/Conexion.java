@@ -62,6 +62,35 @@ public class Conexion implements AutoCloseable {
         return usuarios;
     }
 
+    public List<Map<String, Object>> obtenerUsuariosConFiltro(String filtro) {
+        List<Map<String, Object>> usuarios = new ArrayList<>();
+        String sql = "SELECT id, nombre, apellido, celular_principal, numero_documento FROM Persona WHERE nombre LIKE ? OR apellido LIKE ? OR numero_documento LIKE ?";
+
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            String filtroLike = "%" + filtro + "%";
+            pstmt.setString(1, filtroLike);
+            pstmt.setString(2, filtroLike);
+            pstmt.setString(3, filtroLike);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> usuario = new HashMap<>();
+                    usuario.put("ID", rs.getInt("id"));
+                    usuario.put("Numero_Doc", rs.getInt("numero_documento"));
+                    usuario.put("Nombre", rs.getString("nombre"));
+                    usuario.put("Apellido", rs.getString("apellido"));
+                    usuario.put("Celular", rs.getString("celular_principal"));
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuarios con filtro de la base de datos: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    }
+
     public boolean usuarioExiste(String numeroDocumento, String tipoDocumento) {
         String sql = "SELECT COUNT(*) AS total FROM Persona WHERE numero_documento = ? AND tipo_documento = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
@@ -103,6 +132,18 @@ public class Conexion implements AutoCloseable {
         String sql = "DELETE FROM Persona WHERE id = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
             pstmt.setInt(1, id);
+
+            int rowsDeleted = pstmt.executeUpdate();
+            return rowsDeleted > 0; // Retorna true si se eliminó al menos una fila
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el usuario: " + e.getMessage());
+            return false;
+        }
+    }
+    public boolean deleteUsuarioCC(int cc) {
+        String sql = "DELETE FROM Persona WHERE numero_documento = ?";
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setInt(1, cc);
 
             int rowsDeleted = pstmt.executeUpdate();
             return rowsDeleted > 0; // Retorna true si se eliminó al menos una fila
