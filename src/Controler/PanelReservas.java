@@ -14,7 +14,7 @@ public class PanelReservas extends JFrame {
 
     private JTable tablaHabitaciones;
     private JComboBox<String> comboFiltro;
-    private JButton btnFiltrar, btnReservar,btnVerReserva;
+    private JButton btnFiltrar, btnReservar,btnVerReserva,btnCambiarEstado;
     private DefaultTableModel modeloTabla;
 
     public PanelReservas() {
@@ -62,6 +62,9 @@ public class PanelReservas extends JFrame {
 
 
 
+
+
+
         add(panelInferior, BorderLayout.SOUTH);
 
         // Eventos
@@ -78,18 +81,77 @@ public class PanelReservas extends JFrame {
         String[] columnas = {"ID", "Piso", "Número de Habitación", "Ocupada"};
 
         // Crear un modelo de tabla con los datos y las columnas
-        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Hacer que las celdas no sean editables
+            }
+        };
 
         // Crear el JTable
         JTable tabla = new JTable(modelo);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Permitir seleccionar una sola fila
 
         // Mostrar la tabla en un JScrollPane
         JScrollPane scrollPane = new JScrollPane(tabla);
         JFrame frame = new JFrame("Habitaciones Ocupadas");
-        frame.add(scrollPane);
-        frame.setSize(500, 300);
+        frame.setLayout(new BorderLayout());
+        frame.add(scrollPane, BorderLayout.CENTER);
 
+        // Crear el botón Cambiar Estado
+        JButton btnCambiarEstado = new JButton("Cambiar Estado");
+        frame.add(btnCambiarEstado, BorderLayout.SOUTH);
+
+        // Acción para el botón Cambiar Estado
+        btnCambiarEstado.addActionListener(e -> {
+            int filaSeleccionada = tabla.getSelectedRow();
+            if (filaSeleccionada != -1) { // Verificar que una fila esté seleccionada
+                int idHabitacion = (int) modelo.getValueAt(filaSeleccionada, 0); // Obtener el ID de la habitación
+                boolean ocupada = (boolean) modelo.getValueAt(filaSeleccionada, 3); // Obtener el estado actual
+
+                // Cambiar el estado de la habitación
+                boolean nuevoEstado = !ocupada; // Alternar estado
+                boolean exito = conexion.cambiarEstadoHabitacion(idHabitacion, nuevoEstado);
+
+                if (exito) {
+                    // Actualizar el modelo de la tabla
+                    modelo.setValueAt(nuevoEstado, filaSeleccionada, 3);
+                    JOptionPane.showMessageDialog(frame, "Estado de la habitación cambiado correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Error al cambiar el estado de la habitación.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Por favor, seleccione una habitación.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        // Configuración de la ventana
+        frame.setSize(600, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+
+    private void alternarEstadoHabitacion() {
+        int filaSeleccionada = tablaHabitaciones.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una habitación.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tablaHabitaciones.getModel();
+        String idHabitacion = modelo.getValueAt(filaSeleccionada, 0).toString();
+        boolean ocupadaActual = modelo.getValueAt(filaSeleccionada, 7).toString().equalsIgnoreCase("Sí");
+        boolean nuevaOcupacion = !ocupadaActual;
+
+        try (Conexion conexion = new Conexion()) {
+            if (conexion.cambiarEstadoHabitacion(idHabitacion, nuevaOcupacion)) {
+                JOptionPane.showMessageDialog(this, "El estado de la habitación ha sido actualizado.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                modelo.setValueAt(nuevaOcupacion ? "Sí" : "No", filaSeleccionada, 7);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado de la habitación.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
 

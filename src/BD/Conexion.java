@@ -36,6 +36,7 @@ public class Conexion implements AutoCloseable {
         }
     }
 
+
     public List<Map<String, Object>> obtenerUsuarios() {
         List<Map<String, Object>> usuarios = new ArrayList<>();
         String sql = "SELECT id,   nombre, apellido, celular_principal, numero_documento FROM Persona";
@@ -205,6 +206,19 @@ public class Conexion implements AutoCloseable {
         return habitacionesReservadas;
     }
 
+
+    public boolean cambiarEstadoHabitacion(String idHabitacion, boolean nuevaOcupacion) {
+        String sql = "UPDATE habitaciones SET ocupada = ? WHERE id = ?";
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setBoolean(1, nuevaOcupacion);
+            pstmt.setString(2, idHabitacion);
+            int filasActualizadas = pstmt.executeUpdate();
+            return filasActualizadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 

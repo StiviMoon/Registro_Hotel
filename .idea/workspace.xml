@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Actualizacion - Reciente">
-      <change afterPath="$PROJECT_DIR$/src/Controler/PanelReservas.java" afterDir="false" />
+    <list default="true" id="61069426-5ac1-42a5-8fe4-bcfff7cbfbe3" name="Changes" comment="Bases - Actualizado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BD/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BD/Conexion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BD/bd.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/BD/bd.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vista/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vista/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vista/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vista/Registro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controler/PanelReservas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controler/PanelReservas.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733182539477</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Bases - Actualizado">
+      <option name="closed" value="true" />
+      <created>1733287499949</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733287499949</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -166,6 +170,7 @@
     <MESSAGE value="Registro_CRUD_COMPLETO" />
     <MESSAGE value="Validacion_Registro" />
     <MESSAGE value="Actualizacion - Reciente" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualizacion - Reciente" />
+    <MESSAGE value="Bases - Actualizado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bases - Actualizado" />
   </component>
 </project>
