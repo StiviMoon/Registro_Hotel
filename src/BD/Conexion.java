@@ -154,6 +154,199 @@ public class Conexion implements AutoCloseable {
     }
 
 
+    public List<Map<String, Object>> obtenerHabitaciones() {
+        List<Map<String, Object>> habitaciones = new ArrayList<>();
+        String sql = "SELECT * FROM Habitaciones";
+        try (Statement stmt = c.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Map<String, Object> habitacion = new HashMap<>();
+                habitacion.put("ID", rs.getInt("id"));
+                habitacion.put("NumeroHabitacion", rs.getInt("numero_habitacion"));
+                habitacion.put("Piso", rs.getInt("piso"));
+                habitacion.put("Tipo", rs.getString("tipo"));
+                habitacion.put("CostoPorNoche", rs.getDouble("costo_por_noche"));
+                habitacion.put("MaxPersonas", rs.getInt("max_personas"));
+                habitacion.put("MinPersonas", rs.getInt("min_personas"));
+                habitacion.put("Ocupada", rs.getBoolean("ocupada"));
+                habitaciones.add(habitacion);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener habitaciones: " + e.getMessage());
+        }
+        return habitaciones;
+    }
+
+
+    public List<Map<String, Object>> obtenerHabitacionesReservadas() {
+        List<Map<String, Object>> habitacionesReservadas = new ArrayList<>();
+        String sql = "SELECT id, numero_habitacion, piso, tipo, costo_por_noche, max_personas, min_personas, ocupada "
+                + "FROM Habitaciones WHERE ocupada = TRUE";  // Solo habitaciones ocupadas
+
+        try (PreparedStatement pstmt = c.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Map<String, Object> habitacion = new HashMap<>();
+                habitacion.put("ID", rs.getInt("id"));
+                habitacion.put("NumeroHabitacion", rs.getInt("numero_habitacion"));
+                habitacion.put("Piso", rs.getInt("piso"));
+                habitacion.put("Tipo", rs.getString("tipo"));
+                habitacion.put("CostoPorNoche", rs.getDouble("costo_por_noche"));
+                habitacion.put("MaxPersonas", rs.getInt("max_personas"));
+                habitacion.put("MinPersonas", rs.getInt("min_personas"));
+                habitacion.put("Ocupada", rs.getBoolean("ocupada"));
+                habitacionesReservadas.add(habitacion);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener habitaciones reservadas: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return habitacionesReservadas;
+    }
+
+
+
+
+    // Método para obtener habitaciones ocupadas o desocupadas
+    public List<Map<String, Object>> obtenerHabitacionesPorEstado(boolean ocupada) {
+        List<Map<String, Object>> habitaciones = new ArrayList<>();
+        String sql = "SELECT id, numero_habitacion, piso, tipo_habitacion, costo_por_noche, max_personas, min_personas, ocupada FROM habitaciones WHERE ocupada = ?";
+
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setBoolean(1, ocupada);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> habitacion = new HashMap<>();
+                    habitacion.put("ID", rs.getInt("id"));
+                    habitacion.put("NumeroHabitacion", rs.getString("numero_habitacion"));
+                    habitacion.put("Piso", rs.getInt("piso"));
+                    habitacion.put("Tipo", rs.getString("tipo_habitacion"));
+                    habitacion.put("CostoPorNoche", rs.getBigDecimal("costo_por_noche"));
+                    habitacion.put("MaxPersonas", rs.getInt("max_personas"));
+                    habitacion.put("MinPersonas", rs.getInt("min_personas"));
+                    habitacion.put("Ocupada", rs.getBoolean("ocupada"));
+                    habitaciones.add(habitacion);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener habitaciones por estado: " + e.getMessage());
+        }
+
+        return habitaciones;
+    }
+
+    // Método para cambiar el estado de una habitación
+    public boolean cambiarEstadoHabitacion(int id, boolean nuevoEstado) {
+        String sql = "UPDATE habitaciones SET ocupada = ? WHERE id = ?";
+
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setBoolean(1, nuevoEstado);
+            pstmt.setInt(2, id);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al cambiar el estado de la habitación: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean verificarDisponibilidadHabitacion(String idHabitacion) {
+        String sql = "SELECT ocupada FROM Habitaciones WHERE id = ?";
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setString(1, idHabitacion);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return !rs.getBoolean("ocupada"); // Retorna true si no está ocupada
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar disponibilidad: " + e.getMessage());
+        }
+        return false; // Si no se encuentra la habitación o hay error, retorna false
+    }
+
+
+
+    public Object[][] obtenerHabitacionesOcupadas() {
+        String sql = "SELECT id, piso, numero_habitacion, ocupada FROM habitaciones WHERE ocupada = 1";
+        List<Object[]> habitaciones = new ArrayList<>();
+
+        try (PreparedStatement pstmt = c.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                // Agregar cada fila como un arreglo de objetos
+                habitaciones.add(new Object[]{
+                        rs.getInt("id"),
+                        rs.getInt("piso"),
+                        rs.getString("numero_habitacion"),
+                        rs.getBoolean("ocupada")
+                });
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener habitaciones ocupadas: " + e.getMessage());
+        }
+
+        // Convertir la lista en un arreglo bidimensional
+        return habitaciones.toArray(new Object[0][0]);
+    }
+
+
+
+    public boolean reservarHabitacion(String idHabitacion) {
+        String sql = "UPDATE Habitaciones SET ocupada = ? WHERE id = ?";
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setBoolean(1, true); // Marca la habitación como ocupada
+            pstmt.setString(2, idHabitacion);
+
+            int filasActualizadas = pstmt.executeUpdate();
+            return filasActualizadas > 0; // Retorna true si se actualizó correctamente
+        } catch (SQLException e) {
+            System.err.println("Error al reservar la habitación: " + e.getMessage());
+        }
+        return false;
+    }
+
+
+
+
+
+    public List<Map<String, Object>> obtenerHabitacionesPorTipo(String tipoHabitacion) {
+        List<Map<String, Object>> habitaciones = new ArrayList<>();
+        String sql = tipoHabitacion.equalsIgnoreCase("Todos")
+                ? "SELECT id, numero_habitacion, piso, tipo_habitacion, costo_por_noche, max_personas, min_personas, ocupada FROM habitaciones"
+                : "SELECT id, numero_habitacion, piso, tipo_habitacion, costo_por_noche, max_personas, min_personas, ocupada FROM habitaciones WHERE tipo_habitacion = ?";
+
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            if (!tipoHabitacion.equalsIgnoreCase("Todos")) {
+                pstmt.setString(1, tipoHabitacion);
+            }
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> habitacion = new HashMap<>();
+                    habitacion.put("ID", rs.getInt("id"));
+                    habitacion.put("NumeroHabitacion", rs.getString("numero_habitacion"));
+                    habitacion.put("Piso", rs.getInt("piso"));
+                    habitacion.put("Tipo", rs.getString("tipo_habitacion"));
+                    habitacion.put("CostoPorNoche", rs.getBigDecimal("costo_por_noche"));
+                    habitacion.put("MaxPersonas", rs.getInt("max_personas"));
+                    habitacion.put("MinPersonas", rs.getInt("min_personas"));
+                    habitacion.put("Ocupada", rs.getBoolean("ocupada"));
+                    habitaciones.add(habitacion);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener habitaciones filtradas: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return habitaciones;
+    }
+
     // Método para obtener la conexión
     public Connection getConnection() {
         return c;

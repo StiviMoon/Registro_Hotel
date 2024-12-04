@@ -11,6 +11,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import Controler.PanelReservas;
 import com.toedter.calendar.JDateChooser;
 
 public class Registro extends JPanel {
@@ -28,6 +30,7 @@ public class Registro extends JPanel {
     private JDateChooser fechaNacimientoChooser;
 
     public Registro() {
+
         this.conexion = new Conexion();  // Inicializa la conexión aquí
         setLayout(null);
         setPreferredSize(new Dimension(600, 800));
@@ -155,6 +158,10 @@ public class Registro extends JPanel {
                 if (usuarioExiste) {
                     JOptionPane.showMessageDialog(null, "El usuario ya está registrado.");
                     JOptionPane.showMessageDialog(null, "Bienvenido");
+                    PanelReservas reserva = new PanelReservas();
+                    reserva.mostrarPanelReservas();
+
+
 
                     // Limpiar campos después de la validación
                     textFieldsMap.get("Número de documento R:").setText("");
